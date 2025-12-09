@@ -6,17 +6,11 @@ public class Main {
     public static void main(String[] args) {
         // Create scanner
         Scanner scanner = new Scanner(System.in);
-
-        //make query object
-        Query query = new Query();
-        //query.readFromDisk("17 | 40");
         
         //start input loop
         while (true) {
         System.out.print("\nThe program is ready for the next command: ");
         String functionInput = scanner.nextLine().trim();
-        System.out.println("input: " + functionInput);
-        //String[] functionArray = functionInput.split(" ");
 
         if (functionInput.equalsIgnoreCase("exit")) {
             System.out.println("Exiting program...");
@@ -27,6 +21,10 @@ public class Main {
             case "SELECT A.Col1, A.Col2, B.Col1, B.Col2 FROM A, B WHERE A.RandomV = B.RandomV":
                 Hash hash = new Hash();
                 hash.join();
+                break;
+            case "SELECT count(*) FROM A, B WHERE A.RandomV > B.RandomV":
+                NestedLoop loop = new NestedLoop();
+                loop.join();
                 break;
             default:
                 System.out.println("Unknown command: " + functionInput);
