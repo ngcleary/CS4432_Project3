@@ -1,9 +1,9 @@
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.ArrayList;
 
 
 public class Hash{
@@ -15,7 +15,6 @@ public class Hash{
 
     //track the time it takes to print - exclude from total (time to hash, match, read data and join)
     static long writeTime = 0;
-
     //get the first two columns for each record and return
     public void write(String recA, String recB){
         //get projected columns
@@ -27,7 +26,7 @@ public class Hash{
         
         //meaure the time to print and add to writeTime
         long startTime = System.currentTimeMillis();
-        System.out.println("Record: " + line);
+        System.out.print("Record: " + line);
         long endTime = System.currentTimeMillis();
         writeTime = writeTime + (endTime - startTime);
 
@@ -111,6 +110,7 @@ public class Hash{
         long endTime = System.currentTimeMillis();
         //subtract time to write from total
         System.out.println("Execution Time: " + ((endTime - startTime) - writeTime) + " ms");
+        writeTime = 0;
     }
  
 }
