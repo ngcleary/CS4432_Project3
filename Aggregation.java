@@ -18,6 +18,9 @@ public class Aggregation {
         dataset = "Project3Dataset-" + inputDataset.toUpperCase();
     }
 
+    //track time it takes to write to dataset
+    long writeTime = 0;
+
     //loop through array of randv and either sum or avg
     public void aggregate(){
         //loop through key set
@@ -26,15 +29,22 @@ public class Aggregation {
             for (int randV : hash.get(name)){
                 sum += randV;
             }
+            int avg = sum / (hash.get(name).size());
+            //start writing timer
+            long startTime = System.currentTimeMillis();
             if (function.equals("sum(randomv)")){
                 System.out.println("Record: " + name + ", " + sum);
             } else{
-                System.out.println("Record: " + name + ", " + (sum / (hash.get(name).size())));
+                System.out.println("Record: " + name + ", " + avg);
             }
+            long endTime = System.currentTimeMillis();
+            writeTime = writeTime + (endTime - startTime);
         }
     }
     //build has on dataset -- key is name
     public void createHash(){
+        //start timer
+        long startTime = System.currentTimeMillis();
         //loop through text files in the directory
         File folder = new File(dataset);
         File[] files = folder.listFiles((dir, name) -> name.endsWith(".txt")); 
@@ -76,7 +86,7 @@ public class Aggregation {
             }
             aggregate();
         }
-
-        
+        long endTime = System.currentTimeMillis();
+        System.out.println("Execution Time: " + ((endTime - startTime) - writeTime) + " ms");
     }
 }
